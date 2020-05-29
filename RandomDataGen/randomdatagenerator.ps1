@@ -39,9 +39,26 @@ for ($i = 0; $i -lt 2501; $i++) {
     }
     $pmTrainings = get-random -minimum 0 -maximum $hireTimeDiff
     $hireDate = $hireDate.tostring("MM-dd-yyyy")
-    $value1 = 0,1 | Get-Random
-    $value2 = 0,1 | Get-Random
-    $value3 = 0,1 | Get-Random
+    if ($i % 3 -eq 0) {
+        $value1 = 0,1 | Get-Random    
+    }
+    else {
+        $value1 = 0
+    }
+
+    if ($i % 7 -eq 0) {
+        $value2 = 0,1 | Get-Random    
+    }
+    else {
+        $value2 = 0
+    }
+
+    if ($i % 3 -eq 0) {
+        $value3 = 0,1 | Get-Random    
+    }
+    else {
+        $value3 = 0
+    }
     
     $outString = $user + "," + $hireDate + "," + $value1 + "," + $value2 + "," + $value3 + "," + $pmTrainings
     $outString | Out-File -FilePath C:\Repositories\ScriptMigo\Non-Project-Code\RandomDataGen\random.csv -Append 
