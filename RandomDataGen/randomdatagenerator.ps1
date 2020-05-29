@@ -25,17 +25,24 @@ Function Get-RandomDate {
     }
 }
 
-$header = "userId,hireDate,isBC,isClicker,isEUA"
 
-$header | Out-File -FilePath C:\Repositories\ScriptMigo\Non-Project-Code\random.csv -Append 
+$header = "userId,hireDate,isBC,isClicker,isEUA,pmTrainings"
+
+$header | Out-File -FilePath C:\Repositories\ScriptMigo\Non-Project-Code\RandomDataGen\random.csv -Append 
 
 for ($i = 0; $i -lt 2501; $i++) {
     $user = "User" + $i
-    $hireDate = (Get-Randomdate -min "06/23/1996 14:06:03.297").tostring("MM-dd-yyyy")
+    $hireDate = (Get-Randomdate -min "06/23/1996 14:06:03.297")
+    $hireTimeDiff = (get-date).year - $hireDate.year
+    if ($hireTimeDiff -eq 0) {
+        $hireTimeDiff = $hireTimeDiff + 1
+    }
+    $pmTrainings = get-random -minimum 0 -maximum $hireTimeDiff
+    $hireDate = $hireDate.tostring("MM-dd-yyyy")
     $value1 = 0,1 | Get-Random
     $value2 = 0,1 | Get-Random
     $value3 = 0,1 | Get-Random
     
-    $outString = $user + "," + $hireDate + "," + $value1 + "," + $value2+ "," + $value3
-    $outString | Out-File -FilePath C:\Repositories\ScriptMigo\Non-Project-Code\random.csv -Append 
+    $outString = $user + "," + $hireDate + "," + $value1 + "," + $value2 + "," + $value3 + "," + $pmTrainings
+    $outString | Out-File -FilePath C:\Repositories\ScriptMigo\Non-Project-Code\RandomDataGen\random.csv -Append 
 }
