@@ -26,7 +26,7 @@ Function Get-RandomDate {
 }
 
 
-$header = "userId,hireDate,yearsEmployed,isBC,isClicker,isEUA,pmTrainings"
+$header = "userId,hireDate,yearsEmployed,isBC,isClicker,isEUA,pmTrainings,realP"
 
 $header | Out-File -FilePath C:\Repositories\ScriptMigo\Non-Project-Code\RandomDataGen\random.csv -Append 
 
@@ -60,7 +60,18 @@ for ($i = 0; $i -lt 2501; $i++) {
     else {
         $value3 = 0
     }
+
+    if ($value2 -eq 1) {
+        $realP = 0,1 | Get-Random    
+    }
+    elseif ($i % 47 -eq 0) {
+        $realP = 0,1 | Get-Random
+    }
+    else {
+        $realP = 0
+    }
     
-    $outString = $user + "," + $hireDate + "," + $yearsEmployed + "," + $value1 + "," + $value2 + "," + $value3 + "," + $pmTrainings
+    
+    $outString = $user + "," + $hireDate + "," + $yearsEmployed + "," + $value1 + "," + $value2 + "," + $value3 + "," + $pmTrainings + "," + $realP
     $outString | Out-File -FilePath C:\Repositories\ScriptMigo\Non-Project-Code\RandomDataGen\random.csv -Append 
 }
